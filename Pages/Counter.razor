@@ -1,0 +1,41 @@
+﻿@using _0921Demo.Controls
+@using _0921Demo.Service
+@page "/counter"
+@inject MemBuffer memBuffer
+
+<ProgressBarControl topic="page variable" current="@current" total="@total"></ProgressBarControl>
+<ProgressBarControl topic ="server variable"current="@currentFromServer" total="@total"></ProgressBarControl>
+<button type="button" class="btn btn-primary" @onclick="Start">Start</button>
+
+@code {
+	private int current = 0;
+	private int currentFromServer;
+	private int total = 10;
+
+	protected override void OnInitialized()
+	{
+		currentFromServer = memBuffer.GetCurrentRound();
+		memBuffer.OnCurrentRoundChange += ChangeOnServer;
+
+		base.OnInitialized();
+	}
+	private void ChangeOnServer(int i)
+	{
+		currentFromServer = i;
+		StateHasChanged();
+	}
+
+	private async void Start()
+	{
+		current = 0;
+		memBuffer.SetCurrentRound(0);
+		for (current = 0; current < total;)
+		{
+			await Task.Delay(1000);
+			current++;
+			memBuffer.SetCurrentRound(current);
+			StateHasChanged();
+		}
+		StateHasChanged();
+	}
+}

@@ -1,0 +1,53 @@
+﻿@using _0921Demo.Controls
+@page "/control"
+<h3>***MyControl Page***</h3>
+<input type="number" @bind-value="@v">
+<button type="button" class="btn btn-outline-success" @onclick=PageStateChange>StateChange(Page)</button>
+<table class="table table-striped" style="width:auto; text-align:center">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>result</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		    <td>
+			    none
+		    </td>
+		    <td>
+			    @v
+		    </td>
+	    </tr>
+		<tr>
+		    <td>
+			    bind
+		    </td>
+		    <td>
+			    <input type="number" @bind="@v" disabled>
+		    </td>
+	    </tr>
+		<tr>
+		    <td>
+			    bind-value
+		    </td>
+		    <td>
+			    <input type="number" @bind-value="@v" disabled>
+		    </td>
+	    </tr>
+	</tbody>
+</table>
+<CountControl value="@v" countEC=@setV></CountControl>
+@code {
+	int v = 0;
+
+	private void PageStateChange()
+	{
+		StateHasChanged();
+	}
+
+	private void setV(int v)
+	{
+		this.v = v;
+	}
+}

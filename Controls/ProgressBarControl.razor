@@ -1,0 +1,14 @@
+﻿<h4>@topic</h4>
+<div>
+	<button style="width:@(current*100/@total)%" type="button" class="btn btn-outline-secondary disabled">
+		@current/@total
+	</button>
+</div>
+@code {
+	[Parameter]
+	public string topic { get; set; } = "";
+	[Parameter]
+	public int current { get; set; }
+	[Parameter]
+	public int total { get; set; }
+}

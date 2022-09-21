@@ -1,0 +1,54 @@
+﻿<h3>***MyControl***</h3>
+<input type="number" @bind-value="@value">
+<button type="button" class="btn btn-outline-success" @onclick=ControlStateChange>StateChange(Control)</button>
+<button type="button" class="btn btn-outline-info" @onclick=SendEC>EventCallback</button>
+<table class="table table-striped" style="width:auto; text-align:center">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>result</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				none
+			</td>
+			<td>
+				@value
+			</td>
+		</tr>
+		<tr>
+			<td>
+				bind
+			</td>
+			<td>
+				<input type="number" @bind="@value" disabled>
+			</td>
+		</tr>
+		<tr>
+		    <td>
+			    bind-value
+		    </td>
+		    <td>
+			    <input type="number" @bind-value="@value" disabled>
+		    </td>
+	    </tr>
+	</tbody>
+</table>
+@code {
+	[Parameter]
+	public int value { get; set; }
+	[Parameter]
+	public EventCallback<int> countEC { get; set; }
+
+	private void SendEC()
+	{
+		countEC.InvokeAsync(value);
+	}
+
+	private void ControlStateChange()
+	{
+		StateHasChanged();
+	}
+}
