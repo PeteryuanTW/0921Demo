@@ -1,0 +1,38 @@
+﻿@page "/drag"
+<table class="table table-bordered">
+	@foreach(KeyValuePair<int, double> kvp in rec)
+	{
+		<tr style="width:100%">
+			<td ondragover="event.preventDefault()" @ondrop="@((e)=>{
+				MyOnDrop(e);
+				index_to = kvp.Key;
+				if(index_from == index_to)
+				{
+					SetMargin(e.OffsetX);
+				}
+			    })">
+				<label draggable="true" @ondragstart="@((e)=>{
+					DargStart(e);
+				    index_from = kvp.Key;
+				})">@kvp.Key</label>
+			</td>
+		</tr>
+	}
+</table>
+@code {
+	Dictionary<int, double> rec = new Dictionary<int, double> { { 0, 0.0}, {1, 0.0}, { 2, 0.0}, { 3, 0.0}, { 4, 0.0} };
+	int index_from;
+	int index_to;
+	private void DargStart(DragEventArgs e)
+	{
+		Console.WriteLine("start at:" + e.OffsetY);
+	}
+	private void MyOnDrop(DragEventArgs e)
+	{
+		Console.WriteLine("drop at:" + e.OffsetX);
+	}
+	private void SetMargin(double a)
+	{
+		rec[index_to] = a;
+	}
+}

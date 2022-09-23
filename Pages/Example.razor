@@ -1,0 +1,34 @@
+﻿<!--import-->
+@using _0921Demo.Service
+<!--page routing-->
+@page "/your_page_name"
+<!--dependency injection-->
+@inject MemBuffer membuffer
+
+
+
+<!--html or css-->
+<style>
+    .myCss {
+        min-width: 800px;
+    }
+</style>
+
+<button @onclick="MyFun">@a</button>
+
+@code {
+    //c# code
+    private int a = 0;
+    [Parameter]
+    public string b { get; set; } = "";
+
+    //override function
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+    private void MyFun()
+    {
+        //...
+    }
+}
